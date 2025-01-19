@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+<!-- Extiende la plantilla base.html -->
+
+{% block content %}
+<!-- Define el bloque de contenido -->
+
+<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+<!-- Crea un contenedor principal -->
+
+    <main class="container">
+    <!-- Inicia la sección principal -->
+
+        <div class="row g-5">
+        <!-- Crea una fila con un espacio de 5 entre elementos -->
+
+            <div class="col-md-12">
+            <!-- Define una columna de 12 unidades de ancho para dispositivos de tamaño medio -->
+                {% include "blogs/featured.html" %}
+                <!-- Incluye el archivo de plantilla featured.html ubicado en la carpeta blogs -->
+            </div>
+    
+        </div>
+
+        <div class="row g-5">
+        <!-- Crea otra fila con un espacio de 5 entre elementos -->
+            <div class="col-md-8">
+            <!-- Define una columna de 8 unidades de ancho para dispositivos de tamaño medio -->
+                <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                    Más Artículos
+                </h3>
+                {% for post in post_list %}
+                <!-- Inicia un bucle para iterar sobre la lista de publicaciones -->
+                    <article class="blog-post">
+                    <!-- Define un artículo para una publicación del blog -->
+                        <h2 class="blog-post-title mb-1">
+                            <!-- Muestra el título de la publicación -->
+                            {% comment %} <a href="{% url 'blogs:post' post.slug %}" style="text-decoration: none"
+                                class="text-black">
+                                {{ post.title }}
+                            </a> {% endcomment %}
+                            <a href="{{ post.get_absolute_url }}" style="text-decoration: none"
+                                class="text-black">
+                                {{ post.title }}
+                            </a>
+                        </h2>
+                        <p class="blog-post-meta">{{ post.pub_date.date }}. {{post.author}}</p>
+
+                        <hr>
+                        <p>{{ post.overview }}</p>
+                    </article>
+                {% endfor %}
+
+            </div>
+
+            <div class="col-md-4">
+            <!-- Define una columna de 4 unidades de ancho para dispositivos de tamaño medio -->
+                <div class="position-sticky" style="top: 2rem;">
+                <!-- Crea un contenedor con posición pegajosa en la parte superior -->
+                    <div class="p-4 mb-3 bg-light rounded">
+                        <h4 class="fst-italic">Sobre</h4>
+                        <p class="mb-0">Bienvenido al espacio donde convergen las historias, reflexiones y vivencias de estudiantes universitarios como tú. En nuestro blog, nos sumergimos en un universo rico y diverso de experiencias estudiantiles, independientemente de la carrera o el semestre en el que te encuentres. Desde los desafíos y logros de la vida académica hasta las aventuras fuera del aula, exploramos cada faceta de lo que significa ser un estudiante universitario en la actualidad.
+<p>
+                            Descubre relatos inspiradores sobre superar obstáculos académicos, encontrar pasión en la investigación y proyectos, y hallar equilibrio entre el estudio y la vida personal. Sumérgete en las profundidades de la vida estudiantil mientras exploramos temas como la gestión del tiempo, las relaciones interpersonales, el bienestar mental y físico, y la búsqueda constante de crecimiento personal.
+                            <p>
+                                <h4 class="fst-italic">Objetivos</h4>
+                                <p class="mb-0 text-start">
+                                    Nuestro objetivo es brindarte una fuente de inspiración, apoyo y camaradería en tu viaje universitario. Aquí, encontrarás no solo relatos personales, sino también consejos prácticos, recursos útiles y oportunidades para conectar con otros estudiantes que comparten tus experiencias y desafíos.
+                                </p>
+                    </div>
+            
+                    <div class="p-4">
+                        <h4 class="fst-italic">¡Bienvenido a nuestra comunidad virtual donde las voces de los estudiantes universitarios toman el centro del escenario! Explore, aprenda y comparta sus propias experiencias mientras nos embarcamos juntos en este emocionante viaje por la vida estudiantil..</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+{% endblock content %}
+<!-- Fin del bloque de contenido -->

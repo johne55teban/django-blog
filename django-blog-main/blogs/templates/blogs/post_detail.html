@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load markdown_extras %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+<!-- Bloque de contenido principal -->
+
+<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+<!-- Contenedor principal con diseño Bootstrap -->
+
+    <main class="container">
+    <!-- Contenido principal -->
+
+        <div class="row g-5">
+        <!-- Fila con espaciado entre elementos -->
+
+            <div class="col-md-12">
+            <!-- Columna para mostrar el título y la fecha de publicación -->
+
+                <div class="row">
+                <!-- Fila para alinear elementos horizontalmente -->
+                    <div class="d-flex justify-content-between">
+                    <!-- Elementos alineados en la fila -->
+                        <h1>{{ post.title }}</h1>
+                        <!-- Título de la publicación -->
+                        <div class="align-self-end">Publicado: {{ post.pub_date.date }}</div>
+                        <!-- Fecha de publicación -->
+                    </div>
+                </div>
+                <hr class="d-none d-md-block my-2 mb-3 mt-2">
+                <!-- Línea divisoria -->
+
+                {% if post.image %}
+                <!-- Comprueba si hay una imagen asociada a la publicación -->
+                    <div class="text-center">
+                        <img src="{{ post.image.url }}" class="img-fluid" alt="image">
+                        <!-- Muestra la imagen de la publicación -->
+                    </div>
+                {% endif %}
+
+                <p>{{ post.content | markdown | safe }}</p>
+                <!-- Contenido de la publicación, convertido de Markdown a HTML -->
+
+                <h3 id="comments-section">Comentarios</h3>
+                <!-- Título de la sección de comentarios -->
+                <hr class="d-none d-md-block my-2 mb-3 mt-2">
+                <!-- Línea divisoria -->
+
+                <form method="post">
+                <!-- Formulario para agregar un comentario -->
+                    {% csrf_token %}
+                    <!-- Token CSRF para seguridad -->
+                    {{ form|crispy }}
+                    <!-- Renderiza el formulario con estilos Crispy Forms -->
+                    <button class="btn btn-primary" type="submit">Enter</button>
+                    <!-- Botón de envío del formulario -->
+                </form>
+                <hr class="d-none d-md-block my-2 mb-3 mt-2">
+                <!-- Línea divisoria -->
+
+                {% for comment in post.comment_set.all %}
+                <!-- Bucle para iterar sobre todos los comentarios -->
+                    <div class="mt-4 mb-2 border border-opacity-10 rounded p-1">
+                    <!-- Contenedor de cada comentario -->
+                        <div class="row">
+                        <!-- Fila para alinear elementos horizontalmente -->
+                            <div class="col-8 d-flex">
+                            <!-- Columna para el nombre del autor y la fecha de publicación -->
+                                <h5>{{ comment.author.username }}</h5>
+                                <!-- Nombre de usuario del autor -->
+                                <span>- {{ comment.post_date }}</span>
+                                <!-- Fecha de publicación del comentario -->
+                            </div>
+                            <div class="col-4 text-end">
+                            </div>
+                        </div>
+                        {{ comment.content }}
+                        <!-- Contenido del comentario -->
+                    </div>
+                {% endfor %}
+                <!-- Fin del bucle de comentarios -->
+            </div>
+        </div>
+
+    </main>
+</div>
+
+{% endblock content %}
+<!-- Fin del bloque de contenido principal -->

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}  <!-- Extiende la plantilla base.html -->
+
+{% block content %}  <!-- Define un bloque de contenido -->
+
+<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">  <!-- Contenedor principal -->
+
+    <main class="container">  <!-- Contenedor principal del contenido -->
+
+        <div class="row g-5">  <!-- Fila con un espacio entre columnas -->
+
+            <div class="col-md-3"></div>  <!-- Columna vacía -->
+
+            <div class="col-md-6">  <!-- Columna principal del contenido -->
+
+                <div class="w-100 m-auto text-center">  <!-- Contenedor del mensaje -->
+
+                    <h1>Registro Exitoso</h1>  <!-- Título de registro exitoso -->
+                    <a class="btn btn-outline-primary mb-5" href="{% url 'login' %}" role="button">Ingresar</a>  <!-- Enlace para iniciar sesión -->
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3"></div>  <!-- Columna vacía -->
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}  <!-- Fin del bloque de contenido -->

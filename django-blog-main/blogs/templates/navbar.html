@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <!-- Marca de la barra de navegación con enlace a la página de inicio -->
+        <a class="navbar-brand" href="/">Nuestro<span class="text-danger">Blog</span></a>
+        
+        <!-- Botón para colapsar la barra de navegación en pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Contenido de la barra de navegación colapsable -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Enlace de navegación al inicio -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                </li>
+                <!-- Enlace de navegación a los posts destacados -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blogs:featured' %}">Destacados</a>
+                </li>
+                <!-- Desplegable de categorías -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- Iterar sobre las categorías disponibles -->
+                        {% for category in categories %}
+                            <li><a class="dropdown-item"
+                                    href="{% url 'blogs:category' category.slug %}">{{ category.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+            
+            <!-- Formulario de búsqueda -->
+            <form class="d-flex" role="search" action="{% url 'blogs:search' %}" method="get">
+                <input name="search" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+            
+            <!-- Comprobación si el usuario está autenticado -->
+            {% if user.is_authenticated %}
+            <!-- Formulario para cerrar sesión -->
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary ms-2">Cerrar Sesion</button>
+            </form>
+        {% else %}
+            <!-- Enlace para iniciar sesión -->
+            <a class="btn btn-outline-primary ms-2" href="{% url 'login' %}" role="button">Ingresa</a>
+        {% endif %}
+    </div>
+</nav>

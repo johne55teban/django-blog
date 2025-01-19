@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+        <!-- Contenedor principal que incluye márgenes y espaciado con clases de Bootstrap -->
+
+        <main class="container">
+            <!-- Contenedor principal -->
+
+            <div class="row g-5">
+                <!-- Fila con espacio entre columnas -->
+
+                <div class="col-md-3"></div>
+                <!-- Columna vacía para crear espacio a la izquierda -->
+
+                <div class="col-md-6">
+                    <!-- Columna central que contiene el formulario -->
+
+                    <div class="w-100 m-auto text-center">
+                        <!-- Contenedor centrado -->
+
+                        <form method="post" action="{% url 'login' %}">
+                            <!-- Formulario que se envía a la URL de inicio de sesión -->
+                            {% csrf_token %}
+                            <!-- Token CSRF para protección contra ataques CSRF -->
+                            
+                            <h1 class="h3 mb-3 fw-normal">Ingrese sus datos</h1>
+                            <!-- Título del formulario -->
+
+                            {{ form|crispy }}
+                            <!-- Renderizado del formulario utilizando `crispy_forms` -->
+
+                            <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Ingresa</button>
+                            <!-- Botón de envío del formulario con estilos de Bootstrap -->
+                        </form>
+
+                        <p class="mt-3"><a href="{% url 'password_reset' %}">¿Olvido su cuenta?</a></p>
+                        <!-- Enlace a la página de restablecimiento de contraseña -->
+
+                        <p class="mt-3">¿Aún no tiene una cuenta? <a href="{% url 'users:registration' %}">Crea una</a></p>
+                        <!-- Enlace a la página de registro de usuario -->
+                    </div>
+                </div>
+
+                <div class="col-md-3"></div>
+                <!-- Columna vacía para crear espacio a la derecha -->
+            </div>
+        </main>
+    </div>
+{% endblock %}
